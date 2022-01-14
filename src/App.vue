@@ -1,13 +1,18 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + Vite" />
 </template>
+
+
+<script setup>
+
+import HelloWorld from './components/HelloWorld.vue'
+import igdb from './core/igdb.js';
+
+igdb.search('halo').then(res => console.log(res));
+
+</script>
+
 
 <style>
 #app {
