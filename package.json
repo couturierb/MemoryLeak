@@ -2,8 +2,8 @@
   "name": "memoryleak",
   "version": "0.0.0",
   "scripts": {
-    "dev": "node proxy/proxy.js & vite",
-    "dev-win": "node proxy/proxy.js | vite",
+    "dev": "vite",
+    "proxy": "node proxy/proxy.js",
     "build": "vite build",
     "preview": "vite preview"
   },

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const proxyUrl = 'http://localhost:9999/';
+const proxyUrl = import.meta.env.VITE_IGDB_PROXY_URL;
 const url = proxyUrl + 'https://api.igdb.com/v4/';
 const authUrl = 'https://id.twitch.tv/oauth2/token';
 var token;
@@ -23,7 +23,7 @@ async function search(name) {
     }
 
     return axios
-        .post(url + 'games', `fields name; search "${name}";`, {
+        .post(url + 'games', `fields *; search "${name}";`, {
             headers: {
                 'Client-ID': import.meta.env.VITE_IGDB_CLIENT_ID,
                 'Authorization': 'Bearer ' + token
