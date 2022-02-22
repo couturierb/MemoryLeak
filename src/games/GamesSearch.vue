@@ -1,13 +1,10 @@
 <template>
-    <input
-        type="search"
-        v-model.trim="searchValue"
-        placeholder="Rechercher..."
-        name="search"
-        id="search"
-    />
+    <input type="search" v-model.trim="searchValue" placeholder="Rechercher..." name="search" id="search" />
     <ul>
-        <li v-for="game in games">{{ game.name }}</li>
+        <li v-for="game in games">
+            {{ game.name }}
+            <button @click="addGame(game)">Ajouter</button>
+        </li>
     </ul>
     <a v-if="searchDone && games.length === 0" href>Aucun jeu trouvé, en ajouter un manuellement ?</a>
 </template>
@@ -16,7 +13,7 @@
 import { GamesService } from './games';
 import { ref, watch } from 'vue';
 
-const SEARCH_TIMER_DELAY = import.meta.env.VITE_SEARCH_TIMER_DELAY
+const SEARCH_TIMER_DELAY = import.meta.env.VITE_SEARCH_TIMER_DELAY;
 
 let games = ref([]);
 let searchValue = ref([]);
@@ -27,10 +24,14 @@ watch(searchValue, () => {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
         GamesService.search(searchValue.value)
-            .then(res => games.value = res)
-            .then(() => searchDone.value = true)
+            .then((res) => (games.value = res))
+            .then(() => (searchDone.value = true));
     }, SEARCH_TIMER_DELAY);
 });
+
+function addGame(game) {
+    console.log(game);
+}
 </script>
 
 <style scoped>

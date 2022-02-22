@@ -1,11 +1,13 @@
 <template>
   <GamesSearch />
+  <GamesList />
 </template>
 
 
 <script setup>
 
 import GamesSearch from "./games/GamesSearch.vue";
+import GamesList from "./games/GamesList.vue";
 
 </script>
 
