@@ -1,0 +1,9 @@
+{
+    // Usefull for import with '@' alias (configured in vite) instead of '../'
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    }
+}
