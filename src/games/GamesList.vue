@@ -6,11 +6,11 @@
 
 <script setup>
 import { ref } from 'vue';
-import { GamesService } from './games';
+import { listGames } from './games';
 
 let games = ref([]);
 
-GamesService.getAll().then((res) => {
+listGames().then((res) => {
     console.log(res);
     games.value = res;
 });

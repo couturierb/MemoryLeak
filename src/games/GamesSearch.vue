@@ -1,5 +1,5 @@
 <template>
-    <input type="search" v-model.trim="searchValue" placeholder="Rechercher..." name="search" id="search" />
+    <input type="search" name="search" id="search" placeholder="Rechercher un jeu..." v-model.trim="searchValue" />
     <ul>
         <li v-for="game in games">
             {{ game.name }}
@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { GamesService } from './games';
+import * as gamesService from './games';
 import { ref, watch } from 'vue';
 
 const SEARCH_TIMER_DELAY = import.meta.env.VITE_SEARCH_TIMER_DELAY;
@@ -23,14 +23,15 @@ let searchTimer;
 watch(searchValue, () => {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
-        GamesService.search(searchValue.value)
+        gamesService
+            .searchGame(searchValue.value)
             .then((res) => (games.value = res))
             .then(() => (searchDone.value = true));
     }, SEARCH_TIMER_DELAY);
 });
 
 function addGame(game) {
-    console.log(game);
+    gamesService.addGame(game);
 }
 </script>
 

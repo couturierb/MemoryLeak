@@ -1,15 +1,21 @@
-import igdb from '@/core/igdb.js';
-import fdb from '@/core/firebaseConfig.js';
+import { add, listAll } from '@/core/firebase';
+import { search } from '@/core/igdb';
 
-async function search(name) {
-    return igdb.search(name);
+const COLLECTION_NAME = 'videogames';
+
+async function searchGame(name) {
+    return search(name);
 }
 
-async function getAll() {
-    return fdb.getAll('videogames');
+async function listGames() {
+    return listAll(COLLECTION_NAME);
 }
 
-export const GamesService = {
-    search,
-    getAll
-};
+async function addGame(gameFromIgdb) {
+    const game = {
+        name: gameFromIgdb.name
+    };
+    return add(COLLECTION_NAME, game);
+}
+
+export { searchGame, listGames, addGame };

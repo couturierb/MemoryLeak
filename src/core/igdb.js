@@ -1,3 +1,8 @@
+/**
+ * Module for IGDB configurations and generic functions.
+ * The token will be automaticaly refresh when needed.
+ * A proxy is required for local development (yarn run proxy)
+ */
 import axios from 'axios';
 
 const proxyUrl = import.meta.env.VITE_IGDB_PROXY_URL;
@@ -32,4 +37,4 @@ async function search(name) {
         .then((res) => res.data);
 }
 
-export default { search };
+export { search };
