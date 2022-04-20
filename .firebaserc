@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "mindleak-dev-fcfdd",
+    "dev": "mindleak-dev-fcfdd",
+    "prod": "mindleak-492e6"
+  },
+  "targets": {}
+}

@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, connectFirestoreEmulator, addDoc } from 'firebase/firestore/lite';
 
 initializeApp({
     apiKey: import.meta.env.VITE_APP_APIKEY,
@@ -13,11 +13,21 @@ initializeApp({
 
 const db = getFirestore();
 
-async function getAll(collectionName) {
+if (process.env.NODE_ENV == 'development') {
+    connectFirestoreEmulator(db, 'localhost', 8080);
+}
+
+async function listAll(collectionName) {
     const querySnapshot = await getDocs(collection(db, collectionName));
     return querySnapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
     });
 }
 
-export default { getAll };
+async function add(collectionName, doc) {
+    const docRef = await addDoc(collection(db, collectionName), doc);
+    console.log('Document written with ID: ', docRef.id);
+    return true;
+}
+
+export { add, listAll };
