@@ -1,21 +1,29 @@
 import { add, listAll } from '@/core/firebase';
 import { search } from '@/core/igdb';
+import { reactive, readonly } from 'vue';
 
 const COLLECTION_NAME = 'videogames';
+const state = reactive({
+    games: []
+});
 
 async function searchGame(name) {
     return search(name);
 }
 
 async function listGames() {
-    return listAll(COLLECTION_NAME);
+    state.games = await listAll(COLLECTION_NAME);
 }
 
 async function addGame(gameFromIgdb) {
-    const game = {
-        name: gameFromIgdb.name
-    };
-    return add(COLLECTION_NAME, game);
+    const gameId = await add(COLLECTION_NAME, { name: gameFromIgdb.name });
+    gameFromIgdb.id = gameId;
+    state.games.push(gameFromIgdb);
 }
 
-export { searchGame, listGames, addGame };
+export const store = {
+    state: readonly(state),
+    listGames,
+    addGame
+};
+export { searchGame };

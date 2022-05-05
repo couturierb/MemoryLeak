@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import * as gamesService from './games';
 import { ref, watch } from 'vue';
+import { searchGame, store } from './games';
 
 const SEARCH_TIMER_DELAY = import.meta.env.VITE_SEARCH_TIMER_DELAY;
 
@@ -23,15 +23,16 @@ let searchTimer;
 watch(searchValue, () => {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
-        gamesService
-            .searchGame(searchValue.value)
+        searchGame(searchValue.value)
             .then((res) => (games.value = res))
             .then(() => (searchDone.value = true));
     }, SEARCH_TIMER_DELAY);
 });
 
 function addGame(game) {
-    gamesService.addGame(game);
+    store.addGame(game);
+    games.value = [];
+    searchDone.value = false;
 }
 </script>
 

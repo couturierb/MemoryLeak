@@ -26,8 +26,7 @@ async function listAll(collectionName) {
 
 async function add(collectionName, doc) {
     const docRef = await addDoc(collection(db, collectionName), doc);
-    console.log('Document written with ID: ', docRef.id);
-    return true;
+    return docRef.id;
 }
 
 export { add, listAll };

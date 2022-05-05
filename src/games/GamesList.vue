@@ -1,19 +1,13 @@
 <template>
     <ul>
-        <li v-for="game in games">{{ game.name }} - {{ game.how_long || 'NR' }} - {{ game.statut }} - {{ game.platform }}</li>
+        <li v-for="game in store.state.games">{{ game.name }} - {{ game.how_long || 'NR' }} - {{ game.statut }} - {{ game.platform }}</li>
     </ul>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { listGames } from './games';
+import { store } from './games';
 
-let games = ref([]);
-
-listGames().then((res) => {
-    console.log(res);
-    games.value = res;
-});
+store.listGames();
 </script>
 
 <style scoped></style>
